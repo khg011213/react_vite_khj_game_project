@@ -1,7 +1,7 @@
 import { Children } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import LottoPage from "../components/layout/pages/LottoPage";
+import LottoPage from "../components/pages/LottoPage";
 
 const routes = [
   {
