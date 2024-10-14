@@ -1,6 +1,6 @@
 import React from "react";
 
-const RcpCard = (props) => {
+const RspCard = (props) => {
   return (
     <div className="col-md-4 d-flex justify-content-center">
       <div className="card" style={{ width: "18rem" }}>
@@ -23,4 +23,4 @@ const RcpCard = (props) => {
   );
 };
 
-export default RcpCard;
+export default RspCard;
