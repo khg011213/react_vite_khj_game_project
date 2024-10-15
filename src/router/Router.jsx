@@ -8,11 +8,11 @@ const routes = [
   {
     path: "/",
     element: <App />,
-    loader: () => "로또",
+    loader: () => "가위바위보",
     children: [
       {
         path: "/",
-        loader: () => "로또",
+        loader: () => "가위바위보",
         element: <RspPage />,
       },
     ],
