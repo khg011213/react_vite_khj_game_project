@@ -16,7 +16,7 @@ const BoardListPage = () => {
     });
   };
 
-  return <div></div>;
+  return <div>게시판 실행</div>;
 };
 
 export default BoardListPage;
