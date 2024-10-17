@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import BoardService from "../../services/BoardService";
 
 function BoardUpdatePage() {
@@ -9,22 +9,31 @@ function BoardUpdatePage() {
     bcontent: "",
   };
 
+  //useParams는 /boards/ 다음에 들어가있는 놈을 쓴다
+  const { bid } = useParams();
+
   const [board, setBoard] = useState(initBoardState);
   const [submitted, setSubmitted] = useState(false);
+
+  //처음 랜더링 하고 한번만 타라
+  useEffect(() => {
+    BoardService.get(bid)
+      .then((response) => {
+        console.log(response);
+        setBoard(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setBoard({ ...board, [name]: value });
   };
 
-  const saveBoard = () => {
-    let data = {
-      bname: board.bname,
-      btitle: board.btitle,
-      bcontent: board.bcontent,
-    };
-
-    BoardService.write(data)
+  const updateBoard = () => {
+    BoardService.update(board)
       .then((response) => {
         setSubmitted(true);
         console.log(response.data);
@@ -84,14 +93,14 @@ function BoardUpdatePage() {
                     rows="10"
                   />
                 </div>
-                <button className="btn btn-success" onClick={saveBoard}>
-                  Save
+                <button className="btn btn-success" onClick={updateBoard}>
+                  업데이트
                 </button>
                 <button
                   className="btn btn-danger"
                   style={{ marginLeft: "10px" }}
                 >
-                  Cancel
+                  취소
                 </button>
               </div>
             </div>
