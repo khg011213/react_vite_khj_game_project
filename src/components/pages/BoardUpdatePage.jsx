@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import BoardService from "../../services/BoardService";
 
 function BoardUpdatePage() {
@@ -35,7 +35,7 @@ function BoardUpdatePage() {
   const updateBoard = () => {
     BoardService.update(board)
       .then((response) => {
-        setSubmitted(true);
+        naviage(`/boards`);
         console.log(response.data);
       })
       .catch((e) => {
@@ -43,9 +43,13 @@ function BoardUpdatePage() {
       });
   };
 
-  return submitted ? (
-    <Navigate to={{ pathname: "/boards" }} />
-  ) : (
+  const naviage = useNavigate();
+
+  const cancelClick = () => {
+    naviage(`/boards`);
+  };
+
+  return (
     <div>
       <div className="container mt-3">
         <div className="container">
@@ -99,6 +103,7 @@ function BoardUpdatePage() {
                 <button
                   className="btn btn-danger"
                   style={{ marginLeft: "10px" }}
+                  onClick={cancelClick}
                 >
                   취소
                 </button>
