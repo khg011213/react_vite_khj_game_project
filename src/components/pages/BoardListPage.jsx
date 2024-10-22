@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import boardService from "../../services/BoardService";
 import { Link } from "react-router-dom";
+import Pagingnation from "../board/Pagingnation";
 
 const BoardListPage = () => {
   const [boards, setBoards] = useState([]);
+  const [paging, setPaging] = useState(null);
 
   // 컴포턴트가 처음 랜더링된후 실행
   useEffect(() => {
@@ -17,6 +19,8 @@ const BoardListPage = () => {
       .then((response) => {
         console.log(response); //성공했을때
         setBoards(response.data.boards);
+        console.log(response.data.page);
+        setPaging(response.data.page);
       })
       .catch((e) => {
         console.log(e);
@@ -30,6 +34,22 @@ const BoardListPage = () => {
       console.log(response);
       initBoards();
     });
+  };
+
+  const onClickPaging = (e) => {
+    e.preventDefault(); //기존 링크 동작 하지말아라
+
+    console.log(e.target.pathname);
+    console.log(e.target.search);
+    boardService
+      .getPagingList(e.target.pathname, e.target.search)
+      .then((response) => {
+        setBoards(response.data.boards);
+        setPaging(response.data.page);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -101,10 +121,13 @@ const BoardListPage = () => {
               </table>
             </div>
             {/* 페이징           */}
-            {/* <PaginationB5
-              paging={paging}
-              onClickPaging={onClickPaging}
-            ></PaginationB5> */}
+            {paging != null ? (
+              <Pagingnation
+                paging={paging}
+                onClickPaging={onClickPaging}
+              ></Pagingnation>
+            ) : null}
+
             <hr />
             <Link to="/boards/write">
               <button type="button" className="btn btn-primary">
