@@ -10,6 +10,8 @@ import JasonPage from "../components/pages/jasonPage";
 import JasonPage2 from "../components/pages/JasonPage2";
 import EmpListPage from "../components/pages/EmpListPage";
 import EmpWritePage from "../components/pages/EmpWritePage";
+import JasonPage3 from "../components/pages/JasonPage3";
+import EmpUpdatePage from "../components/pages/EmpUpdatePage";
 
 const routes = [
   {
@@ -83,6 +85,18 @@ const routes = [
     ],
   },
   {
+    path: "/lego3",
+    element: <App />,
+    loader: () => "lego3",
+    children: [
+      {
+        path: "/lego3",
+        loader: () => "레고테이블3",
+        element: <JasonPage3 />,
+      },
+    ],
+  },
+  {
     path: "/emp",
     element: <App />,
     loader: () => "emp",
@@ -96,6 +110,11 @@ const routes = [
         path: "/emp/write",
         loader: () => "글쓰기",
         element: <EmpWritePage />,
+      },
+      {
+        path: "/emp/:empno",
+        loader: () => "글쓰기",
+        element: <EmpUpdatePage />,
       },
     ],
   },

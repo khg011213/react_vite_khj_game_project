@@ -11,20 +11,20 @@ const write = (data) => {
   console.log(data);
   return http.post("/emps/", data);
 };
-// //글번호
-// const get = (id) => {
-//   console.log(id);
-//   return http.get(`/boards/${id}`);
-// };
+//글번호
+const get = (id) => {
+  console.log(id);
+  return http.get(`/emps/${id}`);
+};
 
-// const update = (data) => {
-//   console.log(data);
-//   return http.put("/boards/", data);
-// };
+const update = (data) => {
+  console.log(data);
+  return http.put("/emps/", data);
+};
 export default {
   getPagingList,
   remove,
   write,
-  // get,
-  // update,
+  get,
+  update,
 };

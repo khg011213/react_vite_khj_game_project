@@ -14,15 +14,15 @@ const JasonPage = () => {
       )
       .then((response) => {
         console.log(response.data); // API 응답 확인
-        setData(response.data.contacts);
+        setData(response.data.contacts); //데이터 넣어주기
 
         // 총 페이지 수 계산
-        const totalCount = response.data.totalcount;
+        const totalCount = response.data.totalcount; // 전체 데이터가 몇개인지 데이터 속에서 가져오기
         const pagesize = 10;
-        const totalPages = Math.ceil(totalCount / pagesize);
+        const totalPages = Math.ceil(totalCount / pagesize); //전체 데이터 / 한 페이지에 보여줄 숫자
 
         setPaging({
-          currentPage: currentPage,
+          currentPage: currentPage, //보여줄 페이지 설정
           totalPages: totalPages,
           prev: currentPage > 1,
           next: currentPage < totalPages,

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import boardService from "../../services/BoardService";
 import { Link } from "react-router-dom";
-import Pagingnation from "../board/Pagingnation";
+import axios from "axios";
 import LegoPagingnation from "../board/LegoPagingnation";
 
-const JasonPage3 = () => {
-  const url = "https://sample.bmaster.kro.kr/contacts?pageno=1&pagesize=10";
-
+const LegoListPage = () => {
   let initPaging = {
     // ✔ 화면에 보여질 페이지 그룹
     // ✔ 화면에 보여질 첫번째 페이지
@@ -29,7 +27,11 @@ const JasonPage3 = () => {
     initBoards();
   }, []);
 
-  const initBoards = () => {
+  const initBoards = (pageno = "1") => {
+    let url =
+      "https://sample.bmaster.kro.kr/contacts?pageno=" +
+      pageno +
+      "&pagesize=10";
     axios
       .get(url)
       .then((response) => {
@@ -57,29 +59,8 @@ const JasonPage3 = () => {
 
   const onClickPaging = (e) => {
     e.preventDefault(); // 기존에 링크 동작을 하지 말아라
-
     console.log(e.target.text);
-
-    let url =
-      "https://sample.bmaster.kro.kr/contacts?pageno=" +
-      e.target.text +
-      "&pagesize=10";
-    axios
-      .get(url)
-      .then((response) => {
-        console.log(response);
-        setBoards(response.data.contacts);
-
-        initPaging.pageNum = response.data.pageno;
-        initPaging.total = response.data.totalcount;
-        initPaging.endPage = initPaging.total / response.data.pagesize;
-        initPaging.startPage = 1; //endPage - 9;
-
-        setPaging(initPaging);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    initBoards(e.target.text);
   };
 
   return (
@@ -164,4 +145,4 @@ const JasonPage3 = () => {
   );
 };
 
-export default JasonPage3;
+export default LegoListPage;
