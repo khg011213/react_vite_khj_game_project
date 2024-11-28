@@ -15,7 +15,6 @@ function EmpUpdatePage() {
   };
   const { empno } = useParams();
   const [emp, setEmp] = useState(initBoardState);
-  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     EmpService.get(empno)
